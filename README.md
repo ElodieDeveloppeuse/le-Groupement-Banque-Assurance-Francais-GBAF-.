@@ -1,0 +1,2 @@
+# le-Groupement-Banque-Assurance-Francais-GBAF-.
+Arrivé il y a quelque mois, vous avez su faire rapidement vos preuves. La directrice de la communication, Amandine L., a décidé de vous confier la création d’un extranet. Le but est de permettre des échanges sécurisés à distance.  Après une première réunion de travail en présence d’Amandine et d’Emmanuel, le président du groupe, Amandine vous transmet un compte-rendu de la réunion.  Pour faire suite à cette réunion, Amandine vous envoie également un mail récapitulant vos prochaines missions.
