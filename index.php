@@ -29,20 +29,31 @@
                     {
                         if(filter_var($mail, FILTER_VALIDATE_EMAIL))
                         {
-
-                        if($mdp == $mdp2)
-                        {
-                            // Si tout est ok : Ajouter le nouveau membre.
-                            $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password) VALUES (?, ?, ?, ?)");
-                            $insertmember->execute(array($nom, $prenom, $mail, $mdp));
-                            $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
-                            header('Location: '); // Attention page de redirection pour le profil des nouveaux membres. 
-                        }
-                        else
-                        {
-                            $erreur = "Vos mot de passes ne correspondent pas";
-                        }
-                      } 
+                            // Vérifier que l'adresse mail n'existe pas déjà dans la base de donnée. 
+                            $reqmail = $bdd->prepare("SELECT * FROM membres WHERE mail = ?");
+                            $reqmail->execute(array($mail));
+                            $mailexist = $reqmail->rowCount();
+                            // Si l'email n'existe pas alors on continue
+                            if($mailexist == 0)
+                            {
+                                if($mdp == $mdp2)
+                                {
+                                    // Si tout est ok : Ajouter le nouveau membre.
+                                    $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password) VALUES (?, ?, ?, ?)");
+                                    $insertmember->execute(array($nom, $prenom, $mail, $mdp));
+                                    $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
+                                    header('Location: '); // Attention page de redirection pour le profil des nouveaux membres. 
+                                }
+                                else
+                                {
+                                    $erreur = "Vos mot de passes ne correspondent pas";
+                                }
+                            }
+                            else 
+                            {
+                                $erreur = "Adresse mail déjà utilisé.";
+                            }
+                        } 
                       else
                       {
                           $erreur = "Votre adresse mail n'est pas valide";
