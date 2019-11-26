@@ -51,7 +51,7 @@
                             }
                             else 
                             {
-                                $erreur = "Adresse mail déjà utilisé.";
+                                $erreur = "Adresse mail déjà utilisée.";
                             }
                         } 
                       else
