@@ -3,19 +3,20 @@
 session_start(); 
     // Connexion à la base de donnée.
     $bdd = new PDO('mysql:host=localhost;dbname=espace_membre;charset=utf8', 'root', 'root');
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Vérification de l'envoie du formulaire. 
     if(isset($_POST['connexion']))
     {
     // Sécurisation des variables
-        $mailconnect = htmlspecialchars($_POST['mailconnect']);
+        $pseudoconnect = htmlspecialchars($_POST['pseudoconnect']);
     // Sécurisation du mot de passe. sha1() plus sécurisé que MD5 qui devient obsolète de par les failles de sécurité.
         $mdpconnect = sha1($_POST['mdpconnect']);
     // Vérification des champs
-        if(!empty($mailconnect) AND !empty($mdpconnect))
+        if(!empty($pseudoconnect) && !empty($mdpconnect))
         {
     // Vérification de l'existance du membre. 
-            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE mail = ? AND password = ?");
-            $reqmember->execute(array($mailconnect, $mdpconnect)); 
+            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ? AND password = ?");
+            $reqmember->execute(array($pseudoconnect, $mdpconnect)); 
             $memberexist = $reqmember->rowCount();
             if($memberexist == 1)
             {
@@ -23,6 +24,7 @@ session_start();
                 $_SESSION['id'] = $memberinfo['id'];
                 $_SESSION['nom'] = $memberinfo['nom'];
                 $_SESSION['prenom'] = $memberinfo['prenom'];
+                $_SESSION['pseudo'] = $memberinfo['pseudo'];
                 $_SESSION['mail'] = $memberinfo['mail'];
                 header("Location: profil.php?id=" .$_SESSION['id']);
             }
@@ -44,19 +46,21 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GBAF</title>
+    <link href="connexion.css" rel="stylesheet">
 </head>
-<body>
-    <div align="center">
+<body class="text-center">
+    <div>
         <h2>Connexion</h2>
         <br/> <br/>
-        <form method="POST" action="">
+        <form class="form-signin" method="POST" action="">
+        <img class="mb-4" src="images/logo_gbaf.png" alt="" width="72" height="72">
         <table> 
             <tr> 
             <td align="right">
-                <label for="mail">Email:</label>
+                <label for="pseudo">Pseudo:</label>
             </td>
             <td>
-                <input type="email" placeholder="Votre Email" id="mail" name="mailconnect" value="<?php if(isset($mail)) { echo $mail; }?>"/>
+                <input type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
             </td>
             </tr>
             <tr>

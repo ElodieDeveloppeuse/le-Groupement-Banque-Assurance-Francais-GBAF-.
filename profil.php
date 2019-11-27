@@ -3,11 +3,11 @@ session_start();
 // Connexion à la base de donnée.
 $bdd = new PDO('mysql:host=localhost;dbname=espace_membre;charset=utf8', 'root', 'root');
 // Retourner les informations du membre. 
-if(isset($_GET['id']) AND $_GET['id'] > 0)
+if(isset($_SESSION['id']) && !empty($_SESSION['id']))
 {
-    $getid = intval($_GET['id']);
+   
     $reqmember = $bdd->prepare("SELECT * FROM membres WHERE id = ? ");
-    $reqmember->execute(array($getid)); 
+    $reqmember->execute(array($_SESSION['id'])); 
     $memberinfo = $reqmember->fetch();
 
 ?>
@@ -25,7 +25,7 @@ if(isset($_GET['id']) AND $_GET['id'] > 0)
         <br/> <br/>
         <p><?php  echo $memberinfo['mail'] ;?> </p>
         <?php 
-            if(isset($_SESSION['id']) AND $memberinfo['id'] == $_SESSION['id'])
+            if(isset($_SESSION['id']) && $memberinfo['id'] == $_SESSION['id'])
             {
         ?>
             <a href="profileditor.php"> Modifier mon profil</a>

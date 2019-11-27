@@ -1,30 +1,37 @@
 <?php
+session_start();
     // Connexion à la base de donnée.
     $bdd = new PDO('mysql:host=localhost;dbname=espace_membre;charset=utf8', 'root', 'root');
-
+    $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Vérification de l'envoie du formulaire. 
     if(isset($_POST['inscription']))
     {
     // Sécurisation des variables. 
         $nom = htmlspecialchars($_POST['nom']);
         $prenom = htmlspecialchars($_POST['prenom']);
+        $pseudo = htmlspecialchars($_POST['pseudo']);
         $mail = htmlspecialchars($_POST['mail']);
         $mail2 = htmlspecialchars($_POST['mail2']);
     // Sécurisation du mot de passe. sha1() plus sécurisé que MD5 qui devient obsolète de par les failles de sécurité.
         $mdp = sha1($_POST['mdp']);
         $mdp2 = sha1($_POST['mdp2']);
     // Vérification des champs. 
-        if(!empty($_POST['nom'])AND !empty($_POST['prenom'])AND !empty($_POST['mail'])AND !empty($_POST['mail2'])AND !empty($_POST['mdp'])AND !empty($_POST['mdp2']))
+        if(!empty($_POST['nom'])AND !empty($_POST['prenom'])AND !empty($_POST['pseudo'])AND !empty($_POST['mail'])AND !empty($_POST['mail2'])AND !empty($_POST['mdp'])AND !empty($_POST['mdp2']))
         {
     
     // Vérification du nombre de caractère autorisé. 
             $nomlenght = strlen($nom);
             $prenomlenght = strlen($prenom);
+            $pseudolenght = strlen($pseudo);
+
     // Si le nombre de caractère composant le nom est inférieur ou égale à 255 caractères...
             if($nomlenght <= 255)
             {
                 if($prenomlenght <= 255)
                 {
+                    if($pseudolenght<= 255)
+                    {
+                    
                     if($mail == $mail2)
                     {
                         if(filter_var($mail, FILTER_VALIDATE_EMAIL))
@@ -39,9 +46,11 @@
                                 if($mdp == $mdp2)
                                 {
                                     // Si tout est ok : Ajouter le nouveau membre.
-                                    $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password) VALUES (?, ?, ?, ?)");
-                                    $insertmember->execute(array($nom, $prenom, $mail, $mdp));
+                                    $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password, pseudo) VALUES (?, ?, ?, ?, ?)");
+                                    $insertmember->execute(array($nom, $prenom, $mail, $mdp, $pseudo));
+                                    $_SESSION['id'] = $bdd->lastInsertId();
                                     $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
+                                
                                     header("Location: profil.php?id=" .$_SESSION['id']); // Attention page de redirection pour le profil des nouveaux membres. 
                                 }
                                 else
@@ -64,6 +73,11 @@
                     {
                         $erreur = "Vos adresses mail ne correspondent pas !";
                     }
+
+                   } 
+                   else {
+                       $erreur = "Votre pseudo n'est pas valide.";
+                   }
                 }
                 else
                 {
@@ -85,6 +99,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GBAF</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
 </head>
 <body>
     <div align="center">
@@ -106,6 +121,15 @@
                 </td>
                 <td>
                     <input type="text" placeholder="Votre Prénom" id="prenom" name="prenom" value="<?php if(isset($prenom)) { echo $prenom; }?>"/>
+                </td>
+             </tr>
+             <tr>
+             <tr>
+                <td align="right">
+                    <label for="prenom">Pseudo:</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
                 </td>
              </tr>
              <tr>
