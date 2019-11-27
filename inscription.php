@@ -42,7 +42,7 @@
                                     $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password) VALUES (?, ?, ?, ?)");
                                     $insertmember->execute(array($nom, $prenom, $mail, $mdp));
                                     $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
-                                    header('Location: '); // Attention page de redirection pour le profil des nouveaux membres. 
+                                    header("Location: profil.php?id=" .$_SESSION['id']); // Attention page de redirection pour le profil des nouveaux membres. 
                                 }
                                 else
                                 {
