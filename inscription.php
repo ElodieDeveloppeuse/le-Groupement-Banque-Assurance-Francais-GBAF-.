@@ -55,7 +55,7 @@ session_start();
                                         $insertmember->execute(array($nom, $prenom, $mail, $mdp, $pseudo, $questionList, $answers));
                                         $_SESSION['id'] = $bdd->lastInsertId();
                                         $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
-                                        var_dump($answers);die;
+                                        
                                     header("Location: profil.php?id=" .$_SESSION['id']); // Attention page de redirection pour le profil des nouveaux membres. 
                                     } 
                                     else {
@@ -91,7 +91,7 @@ session_start();
                 }
                 else
                 {
-                    $erreur = "Votre prénom ne doit pas excéder 255 caractéres."; 
+                    $erreur = "Votre prénom ne doit pas excéder 255 caractères."; 
                 }
             }
             else 
