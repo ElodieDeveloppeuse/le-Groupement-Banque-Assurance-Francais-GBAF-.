@@ -27,11 +27,12 @@ représentant les 6 grands groupes français : BNP Paribas, BPCE, Crédit Agrico
     while ($posts = $post->fetch()) 
 {
 ?>
-       <h3>
-       <?php echo $posts['acteur'];?>
-       </h3>
+    <ul>
+       <h3><?php echo $posts['acteur'];?></h3>
        <p><?php echo $posts['description'];?></p>
-       <img src="<?php echo $posts['lien_img'];?>">
+       <img src="<?php echo $posts['lien_img'];?>"></br>
+       <a href="post.php?id=<?php  echo $posts['id']?>" title="<?php echo $posts['acteur'];?>"> Lire la suite</a>
+    </ul>
 <?php
 }
 ?>

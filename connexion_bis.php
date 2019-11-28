@@ -9,14 +9,15 @@ session_start();
     {
     // Sécurisation des variables
         $pseudoconnect = htmlspecialchars($_POST['pseudoconnect']);
-    // Sécurisation du mot de passe. sha1() plus sécurisé que MD5 qui devient obsolète de par les failles de sécurité.
-        $mdpconnect = sha1($_POST['mdpconnect']);
+        $questionList = htmlspecialchars($_POST['questionList']);
+        $answers = htmlspecialchars($_POST['answers']);
+
     // Vérification des champs
-        if(!empty($pseudoconnect) && !empty($mdpconnect))
+        if(!empty($pseudoconnect) && !empty($questionList)&& !empty($answers))
         {
     // Vérification de l'existance du membre. 
-            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ? AND password = ?");
-            $reqmember->execute(array($pseudoconnect, $mdpconnect)); 
+            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ?  AND question = ? AND reponse = ?");
+            $reqmember->execute(array($pseudoconnect, $questionList, $answers)); 
             $memberexist = $reqmember->rowCount();
             if($memberexist == 1)
             {
@@ -64,19 +65,34 @@ session_start();
             </td>
             </tr>
             <tr>
-            <td align="right">
-                <label for="mdp">Mot de passe</label>
-            </td>
-            <td>
-                <input type="password" placeholder="Votre mot de passe" id="mdp" name="mdpconnect"/>
-            </td>
-            </tr>
+                <td></td>
+                <td align="right">
+                    <div class="box">
+                    <label for="select">Question Secrète</label>
+                        <select name="questionList">
+                            <option>-Choississez-</option>
+                            <option>Quel est le nom de votre père ?</option>
+                            <option>Quel est le nom de votre ville de naissance ?</option>
+                            <option>Quel est le nom de votre premier animal dosmestique ?</option>
+                            <option>Quel est votre plat préféré ? </option>
+                            <option>Quel est le nom de votre meilleur ami ?</option>
+                        </select>
+                    </div>
+                </td>
+             </tr>
+             <tr>
+                <td align="right">
+                    <label for="answers">Réponse Secrète</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>
+                </td>
+             </tr>
             <tr>
                 <td></td>
                 <td>
                 <br/> 
-                    <input type="submit" name="connexion" value=" Se connecter"/><br/> 
-                    <a title="s'identifier autrement" href="connexion_bis.php"> S'identifier autrement</a>
+                    <input type="submit" name="connexion" value=" Se connecter"/>
                 </td>
              </tr>
         </table>         
