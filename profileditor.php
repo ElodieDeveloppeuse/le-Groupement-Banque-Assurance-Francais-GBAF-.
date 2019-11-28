@@ -60,7 +60,7 @@ if(isset($_SESSION['id']))
     <div align="enter">
     <table>
         <h2>Modifier de mon profil</h2>
-        <form method="POST" action="">
+        <form method="POST" action="profil.php">
         <tr>
             <td align="right">
                 <label for="nom">Nom:</label>
@@ -106,6 +106,7 @@ if(isset($_SESSION['id']))
                 <td>
                 <br/> 
                     <input type="submit" name="updade" value=" Mettre à jour"/>
+                    <input type="submit" name="updade" value=" Annuler"/>
                 </td>
              </tr>
         </form>

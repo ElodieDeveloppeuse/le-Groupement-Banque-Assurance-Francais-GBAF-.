@@ -28,6 +28,7 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']))
             if(isset($_SESSION['id']) && $memberinfo['id'] == $_SESSION['id'])
             {
         ?>
+            <a href="home.php"> Accueil</a>    
             <a href="profileditor.php"> Modifier mon profil</a>
             <a href="deconnexion.php"> Se déconnecter</a>
         <?php 
