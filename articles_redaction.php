@@ -17,13 +17,13 @@ if(isset($_POST['name_partenaire'], $_POST['description']))
     }
 }
 
-if(isset($_FILES['logo_img']) AND !empty ($_FILES['logo_img']['name']))
+if(isset($_FILES['logo_img']) && !empty ($_FILES['logo_img']['name']))
 {
     $tailleMax =  3000000;
     $formatValides = array('jpg', 'jpeg', 'png');
     if($_FILES['logo_img']['size'] <= $tailleMax)
     {
-        $extension_loaded = 
+        $extension_loaded =  ;
     }
     else
     {

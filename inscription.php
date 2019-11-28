@@ -12,17 +12,20 @@ session_start();
         $pseudo = htmlspecialchars($_POST['pseudo']);
         $mail = htmlspecialchars($_POST['mail']);
         $mail2 = htmlspecialchars($_POST['mail2']);
+        $questionList = htmlspecialchars($_POST['questionList']);
+        $answers = htmlspecialchars($_POST['answers']);
     // Sécurisation du mot de passe. sha1() plus sécurisé que MD5 qui devient obsolète de par les failles de sécurité.
         $mdp = sha1($_POST['mdp']);
         $mdp2 = sha1($_POST['mdp2']);
     // Vérification des champs. 
-        if(!empty($_POST['nom'])AND !empty($_POST['prenom'])AND !empty($_POST['pseudo'])AND !empty($_POST['mail'])AND !empty($_POST['mail2'])AND !empty($_POST['mdp'])AND !empty($_POST['mdp2']))
+        if(!empty($_POST['nom']) && !empty($_POST['prenom']) && !empty($_POST['pseudo']) && !empty($_POST['mail']) &&  !empty($_POST['mail2']) && !empty($_POST['mdp']) &&  !empty($_POST['mdp2']) && !empty($_POST['questionList']) && !empty($_POST['answers']))
         {
     
     // Vérification du nombre de caractère autorisé. 
             $nomlenght = strlen($nom);
             $prenomlenght = strlen($prenom);
             $pseudolenght = strlen($pseudo);
+            $answerslenght = strlen($answers);
 
     // Si le nombre de caractère composant le nom est inférieur ou égale à 255 caractères...
             if($nomlenght <= 255)
@@ -45,18 +48,25 @@ session_start();
                             {
                                 if($mdp == $mdp2)
                                 {
-                                    // Si tout est ok : Ajouter le nouveau membre.
-                                    $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password, pseudo) VALUES (?, ?, ?, ?, ?)");
-                                    $insertmember->execute(array($nom, $prenom, $mail, $mdp, $pseudo));
-                                    $_SESSION['id'] = $bdd->lastInsertId();
-                                    $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
-                                
+                                    if(!empty($questionList) && !empty($answers))
+                                    {
+                                        // Si tout est ok : Ajouter le nouveau membre.
+                                        $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password, pseudo, question, reponse) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                        $insertmember->execute(array($nom, $prenom, $mail, $mdp, $pseudo, $questionList, $answers));
+                                        $_SESSION['id'] = $bdd->lastInsertId();
+                                        $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
+                                        var_dump($answers);die;
                                     header("Location: profil.php?id=" .$_SESSION['id']); // Attention page de redirection pour le profil des nouveaux membres. 
+                                    } 
+                                    else {
+                                        $erreur = "Veuillez choisir une question secrète";
+                                    }
                                 }
                                 else
                                 {
                                     $erreur = "Vos mot de passes ne correspondent pas";
                                 }
+                                 
                             }
                             else 
                             {
@@ -164,6 +174,31 @@ session_start();
                     <input type="password" placeholder="Saisir à nouveau" id="mdp2" name="mdp2"/>
                 </td>
              </tr>
+             <tr>
+                <td></td>
+                <td align="right">
+                    <div class="box">
+                    <label for="select">Question Secrète</label>
+                        <select name="questionList">
+                            <option>-Choississez-</option>
+                            <option>Quel est le nom de votre père ?</option>
+                            <option>Quel est le nom de votre ville de naissance ?</option>
+                            <option>Quel est le nom de votre premier animal dosmestique ?</option>
+                            <option>Quel est votre plat préféré ? </option>
+                            <option>Quel est le nom de votre meilleur ami ?</option>
+                        </select>
+                    </div>
+                </td>
+             </tr>
+             <tr>
+                <td align="right">
+                    <label for="answers">Réponse Secrète</label>
+                </td>
+                <td>
+                    <input type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>
+                </td>
+             </tr>
+             <tr>
              <tr>
                 <td></td>
                 <td>
