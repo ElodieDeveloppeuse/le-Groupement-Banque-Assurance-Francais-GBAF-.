@@ -109,20 +109,26 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GBAF</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
-</head>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  </head>
 <body>
+<nav class="navbar navbar-light  fixed-top">
+  <a class="navbar-brand" href="#">
+    <img src="images/logo_gbaf.png" width="30" height="30" alt="">
+  </a>
+  </nav>
     <div align="center">
-        <h2>Inscription</h2>
-        <br/> <br/>
-        <form method="POST" action="">
-            <table>
+    <form class="form-signup" method="POST" action="">
+        <img class="img-fluid mx-auto center-block md-5" src="./images/logo_gbaf.png" alt="" width="90" height="90">
+        <h1 class="h3 mb-3 font-weigt-normal">Inscription</h1>
+        <div class="form-group row">
+        <table>
              <tr>
                 <td align="right">
                     <label for="nom">Nom:</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="Votre Nom" id="nom" name="nom" value="<?php if(isset($nom)) { echo $nom; }?>"/>
+                    <input class="form-control" type="text" placeholder="Votre Nom" id="nom" name="nom" value="<?php if(isset($nom)) { echo $nom; }?>"/>
                 </td>
              </tr>
              <tr>
@@ -130,7 +136,7 @@ session_start();
                     <label for="prenom">Prénom:</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="Votre Prénom" id="prenom" name="prenom" value="<?php if(isset($prenom)) { echo $prenom; }?>"/>
+                    <input class="form-control" type="text" placeholder="Votre Prénom" id="prenom" name="prenom" value="<?php if(isset($prenom)) { echo $prenom; }?>"/>
                 </td>
              </tr>
              <tr>
@@ -139,7 +145,7 @@ session_start();
                     <label for="prenom">Pseudo:</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+                    <input class="form-control" type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
                 </td>
              </tr>
              <tr>
@@ -147,7 +153,7 @@ session_start();
                     <label for="mail">Email:</label>
                 </td>
                 <td>
-                    <input type="email" placeholder="Votre Email" id="mail" name="mail" value="<?php if(isset($mail)) { echo $mail; }?>"/>
+                    <input class="form-control" type="email" placeholder="Votre Email" id="mail" name="mail" value="<?php if(isset($mail)) { echo $mail; }?>"/>
                 </td>
              </tr>
              <tr>
@@ -155,7 +161,7 @@ session_start();
                     <label for="mail2">Confirmation</label>
                 </td>
                 <td>
-                    <input type="email" placeholder="Saisir à nouveau" id="mail2" name="mail2" value="<?php if(isset($mail2)) { echo $mail2; }?>"/>
+                    <input class="form-control" type="email" placeholder="Saisir à nouveau" id="mail2" name="mail2" value="<?php if(isset($mail2)) { echo $mail2; }?>"/>
                 </td>
              </tr>
              <tr>
@@ -163,7 +169,7 @@ session_start();
                     <label for="mdp">Mot de passe</label>
                 </td>
                 <td>
-                    <input type="password" placeholder="Votre mot de passe" id="mdp" name="mdp"/>
+                    <input class="form-control" type="password" placeholder="Votre mot de passe" id="mdp" name="mdp"/>
                 </td>
              </tr>
              <tr>
@@ -179,7 +185,7 @@ session_start();
                 <td align="right">
                     <div class="box">
                     <label for="select">Question Secrète</label>
-                        <select name="questionList">
+                        <select class="form-control" name="questionList">
                             <option>-Choississez-</option>
                             <option>Quel est le nom de votre père ?</option>
                             <option>Quel est le nom de votre ville de naissance ?</option>
@@ -214,6 +220,10 @@ session_start();
             echo '<font color = "red">'. $erreur . "</font>";
         }
         ?>
+      </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

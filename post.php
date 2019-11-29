@@ -57,24 +57,34 @@ else
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title><?= $titre; ?></title>
+    <title>GBAF</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
 </head>
 <body>
+<nav class="navbar navbar-light ">
+  <a class="navbar-brand" href="home.php">
+    <img src="images/logo_gbaf.png" width="50" height="50" alt="">
+  </a>
+  <a href="phofil.php"><?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?></a>
+
+</nav>
 <articles>
     <img src="<?= $image;?>"></br>
-    <h2><?= $titre; ?><h2>
-    <p><?=  $contenu; ?><p>
+    <h2><?= $titre; ?></h2>
+    <p><?=  $contenu; ?></p>
 </articles>
 <div class="vote">
     <div class="vote_btns">
-        <div class="vote_btns vote_like">12</div>
-        <div class="vote_btns vote_dislike">20</div>
+    <a href="action.php?t=1&id=<?= $get_id; ?>">J'aime</a> (12)
+    <a href="action.php?t=2&id=<?= $get_id; ?>">Je n'aime pas</a>(20)
     </div>
 </div>
-    <a href="action.php?t=1&id=<?= $get_id; ?>">J'aime</a>
-    <a href="action.php?t=2&id=<?= $get_id; ?>">Je n'aime pas</a>
+    
     </br></br>
-    <h4>Commentaires : </h4>
+
+
+    
 <?php while ($commentaire = $commentaires->fetch()){?>
 <b><?= $commentaire['auteur']; ?>: <?= $commentaire['commentaire']; ?></b></br>
 
@@ -82,12 +92,20 @@ else
 }
 ?>
     
-    <form method="POST" action="">
-    <input type="text" name="auteur" placeholder="Votre prénom"/></br>
-    <textarea name="commentaire" placeholder="Votre commentaire..."></textarea></br>
-    <input type="submit" value="Commenter" name="submit_commentaire"/></br>
+    <form class="commentaire" method="POST" action="">
+    <h4>Commentaires : </h4>
+    <div class="form-group">
+    <input type="text" class="form-control" name="auteur" placeholder="Votre prénom"/></br>
+    </div>
+    <div class="form-group">
+    <textarea name="commentaire" class="form-control" placeholder="Votre commentaire..."></textarea></br>
+    </div>
+    <button type="submit" class="btn btn-danger" value="Commenter" name="submit_commentaire">Commenter</button></br>
    
 <?php if(isset($erreur)) { echo '<font color = "red">  '. $erreur . "</font>";} ?>
 </br>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

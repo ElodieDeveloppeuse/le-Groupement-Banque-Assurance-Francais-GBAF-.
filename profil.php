@@ -10,6 +10,9 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']))
     $reqmember->execute(array($_SESSION['id'])); 
     $memberinfo = $reqmember->fetch();
 
+    $post = $bdd->query('SELECT id, acteur, description, date_add, lien_img FROM articles ORDER BY date_add DESC LIMIT 0, 10');
+
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,8 +21,11 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GBAF</title>
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
 </head>
 <body>
+    
     <div align="enter">
         <h2>Profil de <?php  echo $memberinfo['prenom'] ;?></h2>
         <br/> <br/>
@@ -34,7 +40,13 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']))
         <?php 
             }
         ?>
+        
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </body>
 </html>
 <?php

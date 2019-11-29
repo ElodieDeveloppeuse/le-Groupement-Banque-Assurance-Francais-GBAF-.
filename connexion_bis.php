@@ -47,29 +47,37 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GBAF</title>
-    <link href="connexion.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
 </head>
 <body class="text-center">
-    <div>
-        <h2>Connexion</h2>
-        <br/> <br/>
+<nav class="navbar navbar-light  fixed-top">
+  <a class="navbar-brand" href="#">
+    <img src="images/logo_gbaf.png" width="50" height="50" alt="">
+  </a>
+  </nav>
+<div class="bloc_connexion">
         <form class="form-signin" method="POST" action="">
-        <img class="mb-4" src="images/logo_gbaf.png" alt="" width="72" height="72">
-        <table> 
+        <div class="row">
+        <img class="img-fluid mx-auto center-block md-5" src="images/logo_gbaf.png" alt="" width="90" height="90">
+        <h1 class="h3 mb-3 font-weigt-normal">Connexion</h1>
+        <table class=container> 
+        <div class="col">
             <tr> 
-            <td align="right">
-                <label for="pseudo">Pseudo:</label>
+            <td align="center">
+                <label for="inputPseudo" class="sr-only">Pseudo</label>
             </td>
+            </div>
             <td>
-                <input type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+            <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control" name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
             </td>
             </tr>
             <tr>
                 <td></td>
                 <td align="right">
                     <div class="box">
-                    <label for="select">Question Secrète</label>
-                        <select name="questionList">
+                    <label for="select" >Question Secrète</label>
+                        <select name="questionList" class="box-option">
                             <option>-Choississez-</option>
                             <option>Quel est le nom de votre père ?</option>
                             <option>Quel est le nom de votre ville de naissance ?</option>
@@ -85,17 +93,18 @@ session_start();
                     <label for="answers">Réponse Secrète</label>
                 </td>
                 <td>
-                    <input type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>
+                    <input type="text" class="box-answers" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>
                 </td>
              </tr>
             <tr>
                 <td></td>
                 <td>
                 <br/> 
-                    <input type="submit" name="connexion" value=" Se connecter"/>
+                <input type="submit" name="connexion" class=" btn btn-lg btn-danger btn-block" value=" Se connecter"/><br/> 
                 </td>
              </tr>
-        </table>         
+        </table> 
+        </div>        
         </form>
         <?php
         if(isset($erreur))
@@ -104,5 +113,8 @@ session_start();
         }
         ?>
     </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,18 +1,152 @@
 body{
-  padding-top: 100px;
   padding-bottom: 100px;
+  margin-top: 9%;
 }
 
 .btn {
   color: red;
 }
 
+.newpost{
+  padding: 8%;
+}
+
+img{
+  margin-left: 19%;
+  margin-top: 9%;
+}
+
+.h2, h2 {
+  margin-left: 17%;
+  font-size: 2rem;
+  padding: 2%;
+  margin-top: 3%; 
+}
+
+.card-img{
+    flex-shrink: 0;
+    width: 89%;
+    margin-top: 18%;
+    margin-left: 3%;
+    margin-right: 3%;
+    height: 49%;
+}
+.title.section {
+  margin-bottom: 3%;
+  margin-top: 6%;
+}
+form.form-signup {
+  padding-bottom: 100px;
+  margin-top: 9%;
+  width:193%;
+  display: flex;
+  flex-direction: column;
+}
+
+form.form-signin {
+    padding-bottom: 100px;
+    margin-top: 18%;
+    width: 563%;
+    display: flex;
+    flex-direction: column;
+}
+
+tbody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
 .connexion{
   color: red;
   transition: color 2s;
   -webkit-transition: color 2s;
 }
+.gbaf-presentation{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+#gbaf-description{
+    width: 61%;
+}
+.card-body{
+  display: flex;
+
+  flex-direction: column;
+}
+
+.btn-flex {
+  width: 20%;
+  align-self: flex-end;
+}
 a hover {
   color: black;
+}
+
+.card-title .card-text{
+  text-align: justify;
+}
+
+.card-img{
+  margin: auto;
+  padding: auto;
+}
+
+.card-text{
+  text-align: justify;
+}
+
+.card .mb{
+  padding: 200px;
+}
+
+.text-center{
+  margin-top: 9%;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  padding-left: 5%;
+}
+  .bg-light .fixed-top {
+    background-color: #ffffff!important;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+p{
+  text-align: justify;
+  
+    font-style: normal;
+    text-decoration: none;
+    margin-left: 19%;
+    margin-right: 15%;
+}
+
+.commentaire{
+  margin-right: 45%;
+  margin-top: 5%;
+  margin-left: 18%;
+}
+
+
+a{
+  color: #ff0000!important;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+b{
+  margin-left: 18%;
+}
+
+.vote_btns{
+  display: flex;
+    margin-left: 19%;
 }

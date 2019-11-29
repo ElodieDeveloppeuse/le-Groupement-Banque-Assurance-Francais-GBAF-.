@@ -68,7 +68,25 @@ session_start();
     </style>
 </head>
 <body class="text-center">
-    <div class="bloc_connection">
+<nav class="navbar navbar-light  fixed-top">
+  <a class="navbar-brand" href="#">
+    <img src="images/logo_gbaf.png" width="60" height="60" alt="">
+    GBAF
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="inscription.php"> S'inscrire</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="connexion.php">Se connecter <span class="sr-only">(current)</span></a>
+      </li>
+    </div>
+  </nav>
+    <div class="bloc_connexion">
         <form class="form-signin" method="POST" action="">
         <img class="img-fluid mx-auto center-block md-5" src="images/logo_gbaf.png" alt="" width="90" height="90">
         <h1 class="h3 mb-3 font-weigt-normal">Connexion</h1>
@@ -94,7 +112,7 @@ session_start();
                 <td>
                 <br/> 
                     <input type="submit" name="connexion" class=" btn btn-lg btn-danger btn-block" value=" Se connecter"/><br/> 
-                    <a class=" connexion" title="s'identifier autrement" href="connexion_bis.php"> S'identifier autrement</a>
+                    <a class="connexion" title="s'identifier autrement" href="connexion_bis.php"> S'identifier autrement</a>
                 </td>
              </tr>
         </table>         
