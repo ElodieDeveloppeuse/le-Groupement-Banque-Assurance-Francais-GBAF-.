@@ -60,17 +60,28 @@ else
     <title><?= $titre; ?></title>
 </head>
 <body>
+<articles>
     <img src="<?= $image;?>"></br>
     <h2><?= $titre; ?><h2>
     <p><?=  $contenu; ?><p>
+</articles>
+<div class="vote">
+    <div class="vote_btns">
+        <div class="vote_btns vote_like">12</div>
+        <div class="vote_btns vote_dislike">20</div>
+    </div>
+</div>
+    <a href="action.php?t=1&id=<?= $get_id; ?>">J'aime</a>
+    <a href="action.php?t=2&id=<?= $get_id; ?>">Je n'aime pas</a>
     </br></br>
+    <h4>Commentaires : </h4>
 <?php while ($commentaire = $commentaires->fetch()){?>
 <b><?= $commentaire['auteur']; ?>: <?= $commentaire['commentaire']; ?></b></br>
 
 <?php
 }
 ?>
-    <h2>Commentaires : </h2>
+    
     <form method="POST" action="">
     <input type="text" name="auteur" placeholder="Votre prénom"/></br>
     <textarea name="commentaire" placeholder="Votre commentaire..."></textarea></br>

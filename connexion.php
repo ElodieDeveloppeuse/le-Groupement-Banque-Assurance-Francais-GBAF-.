@@ -46,37 +46,55 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GBAF</title>
-    <link href="connexion.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
+    
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
 </head>
 <body class="text-center">
-    <div>
-        <h2>Connexion</h2>
-        <br/> <br/>
+    <div class="bloc_connection">
         <form class="form-signin" method="POST" action="">
-        <img class="mb-4" src="images/logo_gbaf.png" alt="" width="72" height="72">
-        <table> 
+        <img class="img-fluid mx-auto center-block md-5" src="images/logo_gbaf.png" alt="" width="90" height="90">
+        <h1 class="h3 mb-3 font-weigt-normal">Connexion</h1>
+        <table class=container> 
             <tr> 
-            <td align="right">
-                <label for="pseudo">Pseudo:</label>
+            <td align="center">
+                <label for="inputPseudo" class="sr-only">Pseudo</label>
             </td>
             <td>
-                <input type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+                <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control"name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
             </td>
             </tr>
             <tr>
             <td align="right">
-                <label for="mdp">Mot de passe</label>
+                <label for="inputPassword" class="sr-only">Mot de passe</label>
             </td>
             <td>
-                <input type="password" placeholder="Votre mot de passe" id="mdp" name="mdpconnect"/>
+                <input type="password" placeholder="Votre mot de passe" id="inputPassword" class="form-control" name="mdpconnect"/>
             </td>
             </tr>
             <tr>
                 <td></td>
                 <td>
                 <br/> 
-                    <input type="submit" name="connexion" value=" Se connecter"/><br/> 
-                    <a title="s'identifier autrement" href="connexion_bis.php"> S'identifier autrement</a>
+                    <input type="submit" name="connexion" class=" btn btn-lg btn-danger btn-block" value=" Se connecter"/><br/> 
+                    <a class=" connexion" title="s'identifier autrement" href="connexion_bis.php"> S'identifier autrement</a>
                 </td>
              </tr>
         </table>         
@@ -88,5 +106,8 @@ session_start();
         }
         ?>
     </div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
