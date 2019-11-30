@@ -53,58 +53,50 @@ session_start();
 <body class="text-center">
 <nav class="navbar navbar-light  fixed-top">
   <a class="navbar-brand" href="#">
-    <img src="images/logo_gbaf.png" width="50" height="50" alt="">
+    <img src="images/logo_gbaf.png" width="60" height="60" alt="">
+    GBAF
   </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="inscription.php"> S'inscrire</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="connexion.php">Se connecter <span class="sr-only">(current)</span></a>
+      </li>
+    </div>
   </nav>
 <div class="bloc_connexion">
-        <form class="form-signin" method="POST" action="">
-        <div class="row">
+     <form class="form-signin" method="POST" action="">
         <img class="img-fluid mx-auto center-block md-5" src="images/logo_gbaf.png" alt="" width="90" height="90">
         <h1 class="h3 mb-3 font-weigt-normal">Connexion</h1>
-        <table class=container> 
-        <div class="col">
-            <tr> 
-            <td align="center">
-                <label for="inputPseudo" class="sr-only">Pseudo</label>
-            </td>
-            </div>
-            <td>
-            <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control" name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
-            </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td align="right">
-                    <div class="box">
-                    <label for="select" >Question Secrète</label>
-                        <select name="questionList" class="box-option">
+        <div class="form-group row">
+                <div class="col-sm-10">
+                    <input class="form-control" type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+                </div>
+    <div class="col-sm-10">
+    <label for="select">Question Secrète</label>
+                        <select class="form-control" name="questionList">
                             <option>-Choississez-</option>
                             <option>Quel est le nom de votre père ?</option>
                             <option>Quel est le nom de votre ville de naissance ?</option>
                             <option>Quel est le nom de votre premier animal dosmestique ?</option>
                             <option>Quel est votre plat préféré ? </option>
                             <option>Quel est le nom de votre meilleur ami ?</option>
-                        </select>
-                    </div>
-                </td>
-             </tr>
-             <tr>
-                <td align="right">
-                    <label for="answers">Réponse Secrète</label>
-                </td>
-                <td>
-                    <input type="text" class="box-answers" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>
-                </td>
-             </tr>
-            <tr>
-                <td></td>
-                <td>
-                <br/> 
-                <input type="submit" name="connexion" class=" btn btn-lg btn-danger btn-block" value=" Se connecter"/><br/> 
-                </td>
-             </tr>
-        </table> 
-        </div>        
+    </select>
+    </div>
+    <div class="col-sm-10">
+    <label for="answers">Réponse Secrète</label>  
+    <input class="form-control" type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>
+    </div>
+    <div class="col-sm-10">
+      <button type="submit" name="inscription"  class="btn btn-primary"> Je m'inscris</button>
+    </div>         
+    </div>
+</div>  
         </form>
         <?php
         if(isset($erreur))
@@ -112,7 +104,6 @@ session_start();
             echo '<font color = "red">'. $erreur . "</font>";
         }
         ?>
-    </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
