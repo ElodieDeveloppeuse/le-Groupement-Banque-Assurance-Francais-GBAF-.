@@ -9,15 +9,14 @@ session_start();
     {
     // Sécurisation des variables
         $pseudoconnect = htmlspecialchars($_POST['pseudoconnect']);
-        $questionList = htmlspecialchars($_POST['questionList']);
-        $answers = htmlspecialchars($_POST['answers']);
-
+    // Sécurisation du mot de passe. sha1() plus sécurisé que MD5 qui devient obsolète de par les failles de sécurité.
+        $mdpconnect = sha1($_POST['mdpconnect']);
     // Vérification des champs
-        if(!empty($pseudoconnect) && !empty($questionList)&& !empty($answers))
+        if(!empty($pseudoconnect) && !empty($mdpconnect))
         {
     // Vérification de l'existance du membre. 
-            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ?  AND question = ? AND reponse = ?");
-            $reqmember->execute(array($pseudoconnect, $questionList, $answers)); 
+            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ? AND password = ?");
+            $reqmember->execute(array($pseudoconnect, $mdpconnect)); 
             $memberexist = $reqmember->rowCount();
             if($memberexist == 1)
             {
@@ -49,61 +48,72 @@ session_start();
     <title>GBAF</title>
     <link href="style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
-</head>
-<body class="text-center">
-<nav class="navbar navbar-light  fixed-top">
-  <a class="navbar-brand" href="#">
-    <img src="images/logo_gbaf.png" width="60" height="60" alt="">
-    GBAF
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="inscription.php"> S'inscrire</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="connexion.php">Se connecter <span class="sr-only">(current)</span></a>
-      </li>
-    </div>
-  </nav>
-<div class="bloc_connexion">
-     <form class="form-signin" method="POST" action="">
-        <img class="img-fluid mx-auto center-block md-5" src="images/logo_gbaf.png" alt="" width="90" height="90">
-        <h1 class="h3 mb-3 font-weigt-normal">Connexion</h1>
-        <div class="form-group row">
-                <div class="col-sm-10">
-                    <input class="form-control" type="text" placeholder="Votre Pseudo" id="pseudo" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
-                </div>
-    <div class="col-sm-10">
-    <label for="select">Question Secrète</label>
-                        <select class="form-control" name="questionList">
-                            <option>-Choississez-</option>
-                            <option>Quel est le nom de votre père ?</option>
-                            <option>Quel est le nom de votre ville de naissance ?</option>
-                            <option>Quel est le nom de votre premier animal dosmestique ?</option>
-                            <option>Quel est votre plat préféré ? </option>
-                            <option>Quel est le nom de votre meilleur ami ?</option>
-    </select>
-    </div>
-    <div class="col-sm-10">
-    <label for="answers">Réponse Secrète</label>  
-    <input class="form-control" type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>
-    </div>
-    <div class="col-sm-10">
-      <button type="submit" name="inscription"  class="btn btn-primary"> Je m'inscris</button>
-    </div>         
-    </div>
-</div>  
-        </form>
-        <?php
-        if(isset($erreur))
-        {
-            echo '<font color = "red">'. $erreur . "</font>";
+    
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
-        ?>
+      }
+    </style>
+</head>
+<body class="b-connexion">
+    <div class="os-content">
+            <div class="container pt-5">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-12"></div>
+                                <div class="col-lg-6">
+                                    <div class="card">
+                                        <div class="card-body" id="connexionForm">
+                                        <img class="img-fluid max-auto d-block pd-4" src="./images/logo_gbaf.png" style="max-height: 150px">
+                                            <div class="form-group">
+                                            <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control"name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="select">Question Secrète</label>
+                                                    <select class="form-control" name="questionList">
+                                                        <option>-Choississez-</option>
+                                                        <option>Quel est le nom de votre père ?</option>
+                                                        <option>Quel est le nom de votre ville de naissance ?</option>
+                                                        <option>Quel est le nom de votre premier animal dosmestique ?</option>
+                                                        <option>Quel est votre plat préféré ? </option>
+                                                        <option>Quel est le nom de votre meilleur ami ?</option>
+                                                </select>                                            
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="answers">Réponse Secrète</label>  
+                                                    <input class="form-control" type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>                                            
+                                            </div>
+                                            <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">Se connecter</a>                                            <br>
+                                            <br>
+                                            <br>
+                                            <div class="new-account">
+                                                <a class="connexion" title="créer un compte" href="inscription.php"> Vous avez un compte? Connectez-vous...</a>
+                                            </div>
+                    <?php
+                    if(isset($erreur))
+                    {
+                    echo '<font color = "red">'. $erreur . "</font>";
+                    }
+                    ?>  
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+            <div class="col-lg-3 col-md-12"></div>
+        </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
