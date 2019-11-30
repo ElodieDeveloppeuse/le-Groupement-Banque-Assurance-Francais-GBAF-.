@@ -97,26 +97,11 @@ session_start();
                                             <div class="form-group">
                                                 <input class="form-control" type="password" placeholder="Saisir à nouveau" id="mdp2" name="mdp2"/>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="select">Question Secrète</label>
-                                                    <select class="form-control" name="questionList">
-                                                        <option>-Choississez-</option>
-                                                        <option>Quel est le nom de votre père ?</option>
-                                                        <option>Quel est le nom de votre ville de naissance ?</option>
-                                                        <option>Quel est le nom de votre premier animal dosmestique ?</option>
-                                                        <option>Quel est votre plat préféré ? </option>
-                                                        <option>Quel est le nom de votre meilleur ami ?</option>
-                                                </select>                                            
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="answers">Réponse Secrète</label>  
-                                                    <input class="form-control" type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>                                            
-                                            </div>
-                                            <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">S'inscrire</a>                                            <br>
                                             <br>
                                             <br>
-                                            <div class="new-account">
-                                                <a class="connexion" title="créer un compte" href="connexion.php"> Vous avez un compte? Connectez-vous...</a>
+                                            <div class="update-account">
+                                                <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">Mettre à jour</a><br><br>                                         <br>
+                                                <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">Annuler</a><br>
                                             </div>
                     <?php
                     if(isset($erreur))

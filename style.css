@@ -24,13 +24,14 @@ a.connexion:hover{
   -webkit-text-decoration-skip: objects;
 }
 .b-connexion{
-  background-color: red;
+  background-color: #f3eded;
   margin-bottom: 7%;
 }
 
 /* Page Connexion Bis */
 .form-group{
   color:red;
+  margin-top:5%;
 }
 
 a.inscription {
@@ -41,4 +42,3 @@ a.inscription:hover{
   color: black;
 }
 
-/* Page Inscription */
