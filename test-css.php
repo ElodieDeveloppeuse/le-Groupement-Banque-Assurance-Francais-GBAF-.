@@ -74,10 +74,28 @@ session_start();
                             <div class="col-lg-3 col-md-12"></div>
                                 <div class="col-lg-6">
                                     <div class="card">
-                                        <div class="card-body" id="connexionForm">
+                                        <div class="card-body" id="inscriptionForm">
                                         <img class="img-fluid max-auto d-block pd-4" src="./images/logo_gbaf.png" style="max-height: 150px">
                                             <div class="form-group">
-                                            <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control"name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+                                                <input class="form-control" type="text" placeholder="Votre Prénom" id="prenom" name="prenom" value="<?php if(isset($prenom)) { echo $prenom; }?>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="Votre Nom" id="nom" name="nom" value="<?php if(isset($nom)) { echo $nom; }?>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control"name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="email" placeholder="Votre Email" id="mail" name="mail" value="<?php if(isset($mail)) { echo $mail; }?>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="email" placeholder="Saisir à nouveau" id="mail2" name="mail2" value="<?php if(isset($mail2)) { echo $mail2; }?>"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="password" placeholder="Votre mot de passe" id="mdp" name="mdp"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input class="form-control" type="password" placeholder="Saisir à nouveau" id="mdp2" name="mdp2"/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="select">Question Secrète</label>
@@ -94,11 +112,11 @@ session_start();
                                                 <label for="answers">Réponse Secrète</label>  
                                                     <input class="form-control" type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>                                            
                                             </div>
-                                            <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">Se connecter</a>                                            <br>
+                                            <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">S'inscrire</a>                                            <br>
                                             <br>
                                             <br>
                                             <div class="new-account">
-                                                <a class="connexion" title="créer un compte" href="inscription.php"> Vous avez un compte? Connectez-vous...</a>
+                                                <a class="connexion" title="créer un compte" href="connexion.php"> Vous avez un compte? Connectez-vous...</a>
                                             </div>
                     <?php
                     if(isset($erreur))

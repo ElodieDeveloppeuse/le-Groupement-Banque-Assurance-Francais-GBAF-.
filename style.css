@@ -25,6 +25,7 @@ a.connexion:hover{
 }
 .b-connexion{
   background-color: red;
+  margin-bottom: 7%;
 }
 
 /* Page Connexion Bis */
@@ -35,3 +36,9 @@ a.connexion:hover{
 a.inscription {
   color: red;
 }
+
+a.inscription:hover{
+  color: black;
+}
+
+/* Page Inscription */
