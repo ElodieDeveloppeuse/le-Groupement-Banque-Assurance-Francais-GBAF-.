@@ -19,6 +19,13 @@ if(isset($_GET['t'], $_GET['id']) && !empty($_GET['t']) && !empty($_GET['id'])){
         if($gett == 1){         
                 $check_like = $bdd->prepare('SELECT id FROM likes WHERE id_article = ? AND id_membre = ? ');
                 $check_like->execute(array($getid, $sessionid));
+
+                $del= $bdd->prepare('DELETE FROM dislikes WHERE  id_article = ? AND id_membre = ? ');
+                $del->execute(array($getid, $sessionid));
+
+                $check_dislike = $bdd->prepare('SELECT id FROM dislikes WHERE id_article = ? AND id_membre = ? ');
+                $check_dislike->execute(array($getid, $sessionid));
+
                 if($check_like->rowCount() == 1){ 
                 $del= $bdd->prepare('DELETE FROM likes WHERE  id_article = ? AND id_membre = ? ');
                 $del->execute(array($getid, $sessionid));
@@ -28,9 +35,14 @@ if(isset($_GET['t'], $_GET['id']) && !empty($_GET['t']) && !empty($_GET['id'])){
                 }
     
         } elseif ($gett == 2) {
-            $check_dislike = $bdd->prepare('SELECT id FROM dislikes WHERE id_article = ? AND id_membre = ? ');
-            $check_dislike->execute(array($getid, $sessionid));
-            if($check_dislike->rowCount() == 1){ 
+            $check_like = $bdd->prepare('SELECT id FROM dislikes WHERE id_article = ? AND id_membre = ? ');
+            $check_like->execute(array($getid, $sessionid));
+
+            $del= $bdd->prepare('DELETE FROM likes WHERE  id_article = ? AND id_membre = ? ');
+            $del->execute(array($getid, $sessionid));
+
+
+            if($check_like->rowCount() == 1){ 
             $del= $bdd->prepare('DELETE FROM dislikes WHERE  id_article = ? AND id_membre = ? ');
             $del->execute(array($getid, $sessionid));
             } else {
