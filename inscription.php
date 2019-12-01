@@ -116,7 +116,7 @@ session_start();
                                             <br>
                                             <br>
                                             <div class="new-account">
-                                                <a class="connexion" title="créer un compte" href="connexion.php"> Vous avez un compte? Connectez-vous...</a>
+                                                <a class="connexion" title="Me connecter" href="connexion.php"> Vous avez un compte? Connectez-vous...</a>
                                             </div>
                     <?php
                     if(isset($erreur))
