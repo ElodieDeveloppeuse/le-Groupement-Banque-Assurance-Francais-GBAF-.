@@ -7,9 +7,9 @@ $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 if(isset($_GET['id']) && !empty($_GET['id']))
 {
-    $get_id = htmlspecialchars($_GET['id']);
+    $id = htmlspecialchars($_GET['id']);
     $post = $bdd->prepare('SELECT * FROM articles WHERE id = ?');
-    $post->execute(array($get_id));
+    $post->execute(array($id));
 
     if($post->rowCount() == 1 ){
         $post = $post->fetch(); 
@@ -17,8 +17,16 @@ if(isset($_GET['id']) && !empty($_GET['id']))
         $contenu = $post['description'];
         $image = $post ['lien_img'];
 
+        $likes = $bdd->prepare('SELECT id FROM likes WHERE id_article = ?');
+        $likes->execute(array($id));
+        $likes = $likes->rowCount();
+
+        $dislikes = $bdd->prepare('SELECT id FROM dislikes WHERE id_article = ?');
+        $dislikes->execute(array($id));
+        $dislikes = $dislikes->rowCount();
+
         $commentaires = $bdd->prepare('SELECT * FROM commentaires WHERE id_article = ?');
-        $commentaires->execute(array($get_id));
+        $commentaires->execute(array($id));
 
         if(isset($_POST['submit_commentaire'])) {
             if(isset($_POST['auteur'], $_POST['commentaire']) && !empty($_POST['auteur']) && !empty($_POST['commentaire']))
@@ -28,7 +36,7 @@ if(isset($_GET['id']) && !empty($_GET['id']))
 
                 if(strlen($auteur) < 255) {
                     $newcom = $bdd->prepare('INSERT INTO commentaires (id_article, auteur, commentaire) VALUES (?, ?, ?)') ;
-                    $newcom->execute(array($get_id, $auteur, $commentaire));
+                    $newcom->execute(array($id, $auteur, $commentaire));
                     $erreur = "<span style ='color:green'> Votre commentaire a bien été pris en compte.";
                 } else {
                     $erreur = "Erreur :Votre prénom ne doit pas excéder 255 caractères.</span>"; 
@@ -76,8 +84,8 @@ else
 </articles>
 <div class="vote">
     <div class="vote_btns">
-    <a href="action.php?t=1&id=<?= $get_id; ?>">J'aime</a> (12)
-    <a href="action.php?t=2&id=<?= $get_id; ?>">Je n'aime pas</a>(20)
+    <a href="action.php?t=1&id=<?= $id; ?>">J'aime</a> (<?= $likes; ?>)
+    <a href="action.php?t=2&id=<?= $id; ?>">Je n'aime pas</a>(<?= $dislikes; ?>)
     </div>
 </div>
     

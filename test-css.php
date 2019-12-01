@@ -69,54 +69,32 @@ session_start();
 </head>
 <body class="b-connexion">
     <div class="os-content">
-            <div class="container pt-5">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-12"></div>
-                                <div class="col-lg-6">
-                                    <div class="card">
-                                        <div class="card-body" id="inscriptionForm">
-                                        <img class="img-fluid max-auto d-block pd-4" src="./images/logo_gbaf.png" style="max-height: 150px">
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Votre Prénom" id="prenom" name="prenom" value="<?php if(isset($prenom)) { echo $prenom; }?>"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="text" placeholder="Votre Nom" id="nom" name="nom" value="<?php if(isset($nom)) { echo $nom; }?>"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control"name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="email" placeholder="Votre Email" id="mail" name="mail" value="<?php if(isset($mail)) { echo $mail; }?>"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="email" placeholder="Saisir à nouveau" id="mail2" name="mail2" value="<?php if(isset($mail2)) { echo $mail2; }?>"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="password" placeholder="Votre mot de passe" id="mdp" name="mdp"/>
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" type="password" placeholder="Saisir à nouveau" id="mdp2" name="mdp2"/>
-                                            </div>
-                                            <br>
-                                            <br>
-                                            <div class="update-account">
-                                                <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">Mettre à jour</a><br><br>                                         <br>
-                                                <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">Annuler</a><br>
-                                            </div>
-                    <?php
-                    if(isset($erreur))
-                    {
-                    echo '<font color = "red">'. $erreur . "</font>";
-                    }
+                <nav class="navbar navbar-expand-lg  bg-light">
+                    <div class="container" id="espace">
+                        <a class="navbar-brand navbar-mobile" href="profil.php">  
+                        <img class="img-fluid" src="./images/logo_gbaf.png" style="max-height: 45px">  
+                        </a>   
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto"> 
+                                <li class="nav-item active"> 
+                                    <a class="profil" title="Mon compte" href="profil.php" ><?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?><span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item active"> 
+                                    <a class="profil" title="Mon compte" href="profil.php"><?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?><span class="sr-only">(current)</span></a>
+                                </li>
+                                <li> 
+                                </li>  
+                            </ul> 
+                        </div> 
+                        <?php
+                        if(isset($erreur))
+                        {
+                        echo '<font color = "red">'. $erreur . "</font>";
+                        }
                     ?>  
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-            <div class="col-lg-3 col-md-12"></div>
-        </div>
+                    </div> 
+            </nav>                                                       
+    </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
