@@ -88,24 +88,9 @@ if(isset($_SESSION['id']))
                                             <div class="form-group">
                                                 <input class="form-control" type="password" placeholder="Saisir à nouveau" id="mdp2" name="mdp2"/>
                                             </div>
-
-
-
-
-
-
-
-
-
-
-
                 <br/> 
                     <a class="btn btn-block btn-danger btn-lg float-right" href=<?php "profil.php?id=" .$_SESSION['id']?>>Mettre à jour</a>
                     <a class="btn btn-block btn-danger btn-lg float-right" href=<?php "profil.php?id=" .$_SESSION['id']?>>Annuler</a>
-                    var_dump
-                    
-            
-   
     </div>
     <?php
                     if(isset($erreur))

@@ -79,11 +79,6 @@ session_start();
                                 <li class="nav-item active"> 
                                     <a class="profil" title="Mon compte" href="profil.php" ><?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?><span class="sr-only">(current)</span></a>
                                 </li>
-                                <li class="nav-item active"> 
-                                    <a class="profil" title="Mon compte" href="profil.php"><?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?><span class="sr-only">(current)</span></a>
-                                </li>
-                                <li> 
-                                </li>  
                             </ul> 
                         </div> 
                         <?php

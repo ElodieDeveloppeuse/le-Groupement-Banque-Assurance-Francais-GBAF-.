@@ -1,43 +1,106 @@
 <?php
-    // Démarrage de la session
-session_start(); 
+session_start();
     // Connexion à la base de donnée.
     $bdd = new PDO('mysql:host=localhost;dbname=espace_membre;charset=utf8', 'root', 'root');
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     // Vérification de l'envoie du formulaire. 
-    if(isset($_POST['connexion']))
+    if(isset($_POST['inscription']))
     {
-    // Sécurisation des variables
-        $pseudoconnect = htmlspecialchars($_POST['pseudoconnect']);
+    // Sécurisation des variables. 
+        $nom = htmlspecialchars($_POST['nom']);
+        $prenom = htmlspecialchars($_POST['prenom']);
+        $pseudo = htmlspecialchars($_POST['pseudo']);
+        $mail = htmlspecialchars($_POST['mail']);
+        $mail2 = htmlspecialchars($_POST['mail2']);
+
+        $questionList=htmlspecialchars($_POST['question']);
+        $answers=htmlspecialchars($_POST['answers']);
     // Sécurisation du mot de passe. sha1() plus sécurisé que MD5 qui devient obsolète de par les failles de sécurité.
-        $mdpconnect = sha1($_POST['mdpconnect']);
-    // Vérification des champs
-        if(!empty($pseudoconnect) && !empty($mdpconnect))
+        $mdp = sha1($_POST['mdp']);
+        $mdp2 = sha1($_POST['mdp2']);
+    // Vérification des champs. 
+        if(!empty($_POST['nom'])AND !empty($_POST['prenom'])AND !empty($_POST['pseudo'])AND !empty($_POST['mail'])AND !empty($_POST['mail2'])AND !empty($_POST['mdp'])AND !empty($_POST['mdp2']) AND !empty($_POST['question'] AND !empty($_POST['answers'])))
         {
-    // Vérification de l'existance du membre. 
-            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ? AND password = ?");
-            $reqmember->execute(array($pseudoconnect, $mdpconnect)); 
-            $memberexist = $reqmember->rowCount();
-            if($memberexist == 1)
+    
+    // Vérification du nombre de caractère autorisé. 
+            $nomlenght = strlen($nom);
+            $prenomlenght = strlen($prenom);
+            $pseudolenght = strlen($pseudo);
+            $answerslenght = strlen($answers); 
+
+    // Si le nombre de caractère composant le nom est inférieur ou égale à 255 caractères...
+            if($nomlenght <= 255)
             {
-                $memberinfo = $reqmember->fetch();
-                $_SESSION['id'] = $memberinfo['id'];
-                $_SESSION['nom'] = $memberinfo['nom'];
-                $_SESSION['prenom'] = $memberinfo['prenom'];
-                $_SESSION['pseudo'] = $memberinfo['pseudo'];
-                $_SESSION['mail'] = $memberinfo['mail'];
-                header("Location: profil.php?id=" .$_SESSION['id']);
+                if($prenomlenght <= 255)
+                {
+                    if($pseudolenght<= 255)
+                    {
+                    
+                    if($mail == $mail2)
+                    {
+                        if(filter_var($mail, FILTER_VALIDATE_EMAIL))
+                        {
+                            // Vérifier que l'adresse mail n'existe pas déjà dans la base de donnée. 
+                            $reqmail = $bdd->prepare("SELECT * FROM membres WHERE mail = ?");
+                            $reqmail->execute(array($mail));
+                            $mailexist = $reqmail->rowCount();
+                            // Si l'email n'existe pas alors on continue
+                            if($mailexist == 0)
+                            {
+                                if($mdp == $mdp2)
+                                {
+                                    if(!empty($questionList) && !empty($answers))
+                                    {
+                                        // Si tout est ok : Ajouter le nouveau membre.
+                                        $insertmember = $bdd->prepare("INSERT INTO membres (nom, prenom, mail, password, pseudo, question, reponse) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                                        $insertmember->execute(array($nom, $prenom, $mail, $mdp, $pseudo, $questionList, $answers));
+                                        $_SESSION['id'] = $bdd->lastInsertId();
+                                        $_SESSION['nouveaucompte'] = "Votre compte a bien été crée.";
+                                        
+                                    header("Location: profil.php?id=" .$_SESSION['id']); // Attention page de redirection pour le profil des nouveaux membres. 
+                                    } 
+                                    else {
+                                        $erreur = "Veuillez choisir une question secrète";
+                                    }
+                                }
+                                else
+                                {
+                                    $erreur = "Vos mot de passes ne correspondent pas";
+                                }
+                                 
+                            }
+                            else 
+                            {
+                                $erreur = "Adresse mail déjà utilisée.";
+                            }
+                        } 
+                      else
+                      {
+                          $erreur = "Votre adresse mail n'est pas valide";
+                        
+                      }
+                    } 
+                    else
+                    {
+                        $erreur = "Vos adresses mail ne correspondent pas !";
+                    }
+                   } 
+                   else {
+                       $erreur = "Votre pseudo n'est pas valide.";
+                   }
+                }
+                else
+                {
+                    $erreur = "Votre prénom ne doit pas excéder 255 caractères."; 
+                }
             }
-            else
+            else 
             {
-                $erreur = "Identifiants incorrects";
+                $erreur = "Votre nom ne doit pas excéder 255 caractères.";
+            }  
+                }
+
             }
-        }
-        else
-        {
-            $erreur = "Tous les champs doivent être remplis."; 
-        }
-    }
 ?>
 <!DOCTYPE html>
 <html lang="fr">

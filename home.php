@@ -20,11 +20,12 @@ $post = $bdd->query('SELECT id, acteur, description, date_add, lien_img FROM art
     
 
 </head>
-<body>
-<nav class="navbar navbar-light ">
-  <a class="navbar-brand" href="#">
-    <img src="images/logo_gbaf.png" width="50" height="50" alt="">
-  </a>
+<body class="b-connexion">
+    <div class="os-content">
+                <nav class="navbar navbar-expand-lg  bg-light">
+                    <div class="container" id="espace">
+                    <a class="navbar-brand navbar-mobile" href="profil.php">  
+                        <img class="img-fluid" src="./images/logo_gbaf.png" style="max-height: 45px">  
   <a href="phofil.php"><?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?></a>
 
 </nav>
@@ -35,12 +36,14 @@ représentant les 6 grands groupes français : BNP Paribas, BPCE, Crédit Agrico
     <img alt="" src="images/logo_gbaf.png">
 </div>
     <div class="newpost">
+    <h2 class="title_section">Acteurs et Partenaires</h2>
     <?php
     while ($posts = $post->fetch()) 
 {
 ?>
-<h2 class="title section">Acteurs et Partenaires</h2>
-<div class="card mb" style="max-width: 100%;">
+
+<div class="card mb-3" style="max-width: 75%;">
+<div class="col-lg-3 col-md-12"></div>
   <div class="row no-gutters">
     <div class="col-md-4">
       <img src="<?php echo $posts['lien_img'];?>" class="card-img" alt="...">
@@ -49,7 +52,7 @@ représentant les 6 grands groupes français : BNP Paribas, BPCE, Crédit Agrico
       <div class="card-body">
         <h3 class="card-title"><?php echo $posts['acteur'];?></h3>
         <p class="card-text"><?php echo $posts['description'];?></p>
-        <a href="post.php?id=<?php  echo $posts['id']?>" class="btn btn-danger btn-flex" title="<?php echo $posts['acteur'];?>">Lire la suite</a>
+        <a href="post.php?id=<?php  echo $posts['id']?>" class="btn btn-danger" title="<?php echo $posts['acteur'];?>">Lire la suite</a>
       </div>
     </div>
   </div>
@@ -57,9 +60,12 @@ représentant les 6 grands groupes français : BNP Paribas, BPCE, Crédit Agrico
 <?php
 }
 ?>
+      </div>
     </div>
-
+  <div class="col-lg-3 col-md-12"></div>
+</div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
 </html>

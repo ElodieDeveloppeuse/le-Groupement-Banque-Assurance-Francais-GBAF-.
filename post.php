@@ -4,6 +4,15 @@ session_start();
 $bdd = new PDO('mysql:host=localhost;dbname=espace_membre;charset=utf8', 'root', 'root');
 $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+if(isset($_SESSION['id']) && !empty($_SESSION['id']))
+{
+   
+    $reqmember = $bdd->prepare("SELECT * FROM membres WHERE id = ? ");
+    $reqmember->execute(array($_SESSION['id'])); 
+    $memberinfo = $reqmember->fetch();
+
+    $post = $bdd->query('SELECT id, acteur, description, date_add, lien_img FROM articles ORDER BY date_add DESC LIMIT 0, 10');
+
 
 if(isset($_GET['id']) && !empty($_GET['id']))
 {
@@ -70,18 +79,34 @@ else
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">  
 </head>
 <body>
-<nav class="navbar navbar-light ">
-  <a class="navbar-brand" href="home.php">
-    <img src="images/logo_gbaf.png" width="50" height="50" alt="">
-  </a>
-  <a href="phofil.php"><?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?></a>
+<header>
+    <div class="os-content">
+        <nav class="navbar navbar-expand-lg bg-light">
+            <div class="container" id="espace">
+            <a class="navbar-brand navbar-mobile" href="profil.php">  
+                        <img class="img-fluid" src="./images/logo_gbaf.png" style="max-height: 45px">  
+                        <?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?>
+                        <a href="profileditor.php"> Modifier mon profil</a>
+                        <a href="deconnexion.php"> Se déconnecter</a>
+        </nav>
+            <?php 
+            if(isset($_SESSION['id']) && $memberinfo['id'] == $_SESSION['id'])
+            {
+            ?>
+            <?php 
+            }
+            ?>
 
-</nav>
-<articles>
-    <img src="<?= $image;?>"></br>
+</header>
+<article>
+
+<div class="card">
+  <div class="card-body">
+  <img src="<?= $image;?>"></br>
     <h2><?= $titre; ?></h2>
-    <p><?=  $contenu; ?></p>
-</articles>
+    <p><?=  $contenu; ?></p>  </div>
+</div>
+</article>
 <div class="vote">
     <div class="vote_btns">
     <a href="action.php?t=1&id=<?= $id; ?>">J'aime</a> (<?= $likes; ?>)
@@ -90,25 +115,48 @@ else
 </div>
     
     </br></br>
-
-
-    
+<div class="card">
+<div class="card-body">
+        
 <?php while ($commentaire = $commentaires->fetch()){?>
 <b><?= $commentaire['auteur']; ?>: <?= $commentaire['commentaire']; ?></b></br>
 
 <?php
 }
 ?>
+  </div>
+</div>
+
+<div class="card mb-3" style="max-width: 75%;">
+<div class="col-lg-3 col-md-12"></div>
+  <div class="row no-gutters">
+    <div class="col-md-4">
+            <form class="commentaire" method="POST" action="">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h3 class="card-title"><h4>Commentaires : </h4>
+        <div class="card-text"></p>
+        <div class="form-group">
+            <input type="text" class="form-control" name="auteur" placeholder="Votre prénom"/></br>
+        </div> 
+        <div class="form-group">
+            <textarea name="commentaire" class="form-control" placeholder="Votre commentaire..."></textarea></br>
+        </div> 
+        <div class="form-group">
+        <button type="submit" class="btn btn-danger" value="Commenter" name="submit_commentaire">Commenter</button></br>      
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+</div>
     
-    <form class="commentaire" method="POST" action="">
-    <h4>Commentaires : </h4>
-    <div class="form-group">
-    <input type="text" class="form-control" name="auteur" placeholder="Votre prénom"/></br>
-    </div>
-    <div class="form-group">
-    <textarea name="commentaire" class="form-control" placeholder="Votre commentaire..."></textarea></br>
-    </div>
-    <button type="submit" class="btn btn-danger" value="Commenter" name="submit_commentaire">Commenter</button></br>
+    
+    
+   
+   
+    
    
 <?php if(isset($erreur)) { echo '<font color = "red">  '. $erreur . "</font>";} ?>
 </br>
@@ -117,3 +165,6 @@ else
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+<?php
+}
+?>
