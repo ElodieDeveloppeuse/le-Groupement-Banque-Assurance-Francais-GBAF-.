@@ -8,15 +8,15 @@ session_start();
     if(isset($_POST['connexion']))
     {
     // Sécurisation des variables
-        $pseudoconnect = htmlspecialchars($_POST['pseudoconnect']);
-    // Sécurisation du mot de passe. sha1() plus sécurisé que MD5 qui devient obsolète de par les failles de sécurité.
-        $mdpconnect = sha1($_POST['mdpconnect']);
+        $pseudo = htmlspecialchars($_POST['pseudo']);
+        $questionList = htmlspecialchars($_POST['question']);
+        $answers = htmlspecialchars($_POST['reponse']);
     // Vérification des champs
-        if(!empty($pseudoconnect) && !empty($mdpconnect))
+        if(!empty($pseudo) && !empty($questionList)  && !empty($answers))
         {
     // Vérification de l'existance du membre. 
-            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ? AND password = ?");
-            $reqmember->execute(array($pseudoconnect, $mdpconnect)); 
+            $reqmember = $bdd->prepare("SELECT * FROM membres WHERE pseudo = ? AND question = ?  AND reponse = ?");
+            $reqmember->execute(array($pseudo, $questionList, $answers)); 
             $memberexist = $reqmember->rowCount();
             if($memberexist == 1)
             {
@@ -25,7 +25,7 @@ session_start();
                 $_SESSION['nom'] = $memberinfo['nom'];
                 $_SESSION['prenom'] = $memberinfo['prenom'];
                 $_SESSION['pseudo'] = $memberinfo['pseudo'];
-                $_SESSION['mail'] = $memberinfo['mail'];
+            
                 header("Location: profil.php?id=" .$_SESSION['id']);
             }
             else
@@ -68,6 +68,7 @@ session_start();
     </style>
 </head>
 <body class="b-connexion">
+<form method="POST" action="">
     <div class="os-content">
             <div class="container pt-5">
                         <div class="row">
@@ -75,13 +76,13 @@ session_start();
                                 <div class="col-lg-6">
                                     <div class="card">
                                         <div class="card-body" id="connexionForm">
-                                        <img class="img-fluid max-auto d-block pd-4" src="./images/logo_gbaf.png" style="max-height: 150px">
+                                        <img class="img-fluid max-auto d-block pd-4 logo" src="./images/logo_gbaf.png" style="max-height: 150px">
                                             <div class="form-group">
-                                            <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control"name="pseudoconnect" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
+                                            <input type="text" placeholder="Votre Pseudo" id="inputPseudo" class="form-control" name="pseudo" value="<?php if(isset($pseudo)) { echo $pseudo; }?>"/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="select">Question Secrète</label>
-                                                    <select class="form-control" name="questionList">
+                                                    <select class="form-control" name="question" value="<?php if(isset($questionList)) { echo $questionList; }?>">
                                                         <option>-Choississez-</option>
                                                         <option>Quel est le nom de votre père ?</option>
                                                         <option>Quel est le nom de votre ville de naissance ?</option>
@@ -92,13 +93,15 @@ session_start();
                                             </div>
                                             <div class="form-group">
                                                 <label for="answers">Réponse Secrète</label>  
-                                                    <input class="form-control" type="text" placeholder="Saisir votre réponse secrète" id="answers" name="answers" value="<?php if(isset($answers)) { echo $answers; }?>"/>                                            
+                                                    <input class="form-control" type="text" placeholder="Saisir votre réponse secrète" id="answers" name="reponse" value="<?php if(isset($answers)) { echo $answers; }?>"/>                                            
                                             </div>
-                                            <a href="profil.php" class="btn btn-block btn-danger btn-lg float-right" role="button" aria-pressed="true">Se connecter</a>                                            <br>
-                                            <br>
+                                            <input type="submit" name="connexion" class="btn btn-block btn-danger btn-lg float-right" value="Se connecter"><br>
                                             <br>
                                             <div class="new-account">
                                                 <a class="inscription" title="créer un compte" href="inscription.php"> Pas encore de compte ? Créez-en un...</a>
+                                            </div>
+                                            <div class="identification">
+                                                <a class="connexion_bis" title="s'identifier autrement" href="connexion.php"> S'identifier autrement...</a>
                                             </div>
                     <?php
                     if(isset($erreur))
@@ -112,10 +115,11 @@ session_start();
                                 </div>
                         </div>
                     </div>
-            <div class="col-lg-3 col-md-12"></div>
+
         </div>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</form>
 </body>
 </html>

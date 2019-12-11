@@ -1,14 +1,35 @@
 body{
   margin:2px 5px 2em 0;
+  
 }
+
+nav {
+  display: flex !important;
+  flex-direction: column !important;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+.reading{
+  align-self: flex-end;
+  width: 25%;
+}
+
+.logo{
+    width: 32%;
+    height: 32%;
+    margin-left: 32%;
+}
+
 
 /* Page Connexion */
-img {
-  margin-right: 32%;
-  margin-left: 32%;
-}
 
 a.connexion {
+  color: red;
+}
+
+a.connexion_bis {
   color: red;
 }
 
@@ -36,6 +57,21 @@ a.connexion:hover{
   background-color: #f3eded;
   margin-bottom: 7%;
 }
+/* Page Inscription */
+
+
+a.connexion{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+a.connexion_bis{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
 
 /* Page Connexion Bis */
 .form-group{
@@ -52,6 +88,14 @@ a.inscription:hover{
 }
 
 /* Page Profil */
+.os-content{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
 .profil{
   color: black;
 }
@@ -100,4 +144,28 @@ p.card-text{
 
 h2.title_section{ 
   margin: 4% 54% 4% 12%;
+}
+
+/* Page article */
+
+.card-title-header{
+  display: flex;
+  flex-direction: row;
+
+}
+
+font{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: black;
+}
+.vote_btns a {
+  color:red;
+}
+
+.vote{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 11%;
 }

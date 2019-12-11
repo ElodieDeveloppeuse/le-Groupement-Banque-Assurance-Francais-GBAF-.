@@ -34,17 +34,16 @@ if(isset($_GET['id']) && !empty($_GET['id']))
         $dislikes->execute(array($id));
         $dislikes = $dislikes->rowCount();
 
-        $commentaires = $bdd->prepare('SELECT * FROM commentaires WHERE id_article = ?');
-        $commentaires->execute(array($id));
 
         if(isset($_POST['submit_commentaire'])) {
             if(isset($_POST['auteur'], $_POST['commentaire']) && !empty($_POST['auteur']) && !empty($_POST['commentaire']))
             {
                 $auteur = htmlspecialchars($_POST['auteur']);
                 $commentaire = htmlspecialchars($_POST['commentaire']);
+                
 
                 if(strlen($auteur) < 255) {
-                    $newcom = $bdd->prepare('INSERT INTO commentaires (id_article, auteur, commentaire) VALUES (?, ?, ?)') ;
+                    $newcom = $bdd->prepare('INSERT INTO commentaires (id_article, auteur, commentaire, date_commentaire) VALUES (?, ?, ?, NOW())') ;
                     $newcom->execute(array($id, $auteur, $commentaire));
                     $erreur = "<span style ='color:green'> Votre commentaire a bien été pris en compte.";
                 } else {
@@ -64,6 +63,8 @@ else
     header('Location: home.php');
 }
 
+$commentaires = $bdd->prepare('SELECT * FROM commentaires WHERE id_article = ? ORDER BY id DESC');
+$commentaires->execute(array($id));
   
 
 ?>
@@ -80,11 +81,11 @@ else
 </head>
 <body>
 <header>
-    <div class="os-content">
-        <nav class="navbar navbar-expand-lg bg-light">
-            <div class="container" id="espace">
+    <div class="os-content bg-light">
+    <img class="img-fluid" src="./images/logo_gbaf.png" style="max-height: 45px">  
+        <nav class="navbar navbar-expand-lg  ">
             <a class="navbar-brand navbar-mobile" href="profil.php">  
-                        <img class="img-fluid" src="./images/logo_gbaf.png" style="max-height: 45px">  
+                       
                         <?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?>
                         <a href="profileditor.php"> Modifier mon profil</a>
                         <a href="deconnexion.php"> Se déconnecter</a>
@@ -119,24 +120,24 @@ else
 <div class="card-body">
         
 <?php while ($commentaire = $commentaires->fetch()){?>
-<b><?= $commentaire['auteur']; ?>: <?= $commentaire['commentaire']; ?></b></br>
+<b><?= $commentaire['auteur']; ?>: <?= $commentaire['commentaire']; ?>  <?= $commentaire['date_commentaire']; ?></b></br>
 
 <?php
 }
 ?>
   </div>
 </div>
-
+<form class="commentaire" method="POST" action="">
 <div class="card mb-3" style="max-width: 75%;">
 <div class="col-lg-3 col-md-12"></div>
-  <div class="row no-gutters">
-    <div class="col-md-4">
-            <form class="commentaire" method="POST" action="">
-    </div>
+  <div class="row no-gutters"> 
     <div class="col-md-8">
       <div class="card-body">
-        <h3 class="card-title"><h4>Commentaires : </h4>
-        <div class="card-text"></p>
+      <div class="card-title-header">
+      <h3 class="card-title"><h4>Commentaires : </h4>
+      
+      </div> 
+      <div class="card-text">
         <div class="form-group">
             <input type="text" class="form-control" name="auteur" placeholder="Votre prénom"/></br>
         </div> 
@@ -144,7 +145,8 @@ else
             <textarea name="commentaire" class="form-control" placeholder="Votre commentaire..."></textarea></br>
         </div> 
         <div class="form-group">
-        <button type="submit" class="btn btn-danger" value="Commenter" name="submit_commentaire">Commenter</button></br>      
+        <button type="submit" class="btn btn-danger" value="Commenter" name="submit_commentaire">Commenter</button></br>    
+        </div>  
         </div>
     </div>
     </div>

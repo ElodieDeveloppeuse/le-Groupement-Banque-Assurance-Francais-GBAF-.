@@ -26,11 +26,11 @@ if(isset($_SESSION['id']) && !empty($_SESSION['id']))
 </head>
 <body class="b-connexion">
 <header>
-    <div class="os-content">
-        <nav class="navbar navbar-expand-lg  bg-light">
-            <div class="container" id="espace">
+    <div class="os-content bg-light">
+    <img class="img-fluid" src="./images/logo_gbaf.png" style="max-height: 45px">  
+        <nav class="navbar navbar-expand-lg  ">
             <a class="navbar-brand navbar-mobile" href="profil.php">  
-                        <img class="img-fluid" src="./images/logo_gbaf.png" style="max-height: 45px">  
+                       
                         <?php echo $_SESSION['prenom'] . " " .$_SESSION['nom']?>
                         <a href="profileditor.php"> Modifier mon profil</a>
                         <a href="deconnexion.php"> Se déconnecter</a>
@@ -68,7 +68,7 @@ représentant les 6 grands groupes français : BNP Paribas, BPCE, Crédit Agrico
       <div class="card-body">
         <h3 class="card-title"><?php echo $posts['acteur'];?></h3>
         <p class="card-text"><?php echo $posts['description'];?></p>
-        <a href="post.php?id=<?php  echo $posts['id']?>" class="btn btn-danger" title="<?php echo $posts['acteur'];?>">Lire la suite</a>
+        <a href="post.php?id=<?php  echo $posts['id']?>" class="btn btn-danger reading" title="<?php echo $posts['acteur'];?>">Lire la suite</a>
       </div>
     </div>
   </div>
